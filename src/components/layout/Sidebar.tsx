@@ -17,7 +17,7 @@ export function Sidebar() {
   // We'll use a simple implementation for now, assuming client-side navigation
   // For a real app, we might want to pass pathname as a prop or use a client component wrapper
   return (
-    <div className="flex h-full w-64 flex-col bg-card border-r">
+    <div className="flex h-full w-64 flex-col glass border-r">
       <div className="flex h-16 items-center px-6 border-b">
         <Activity className="h-6 w-6 text-primary mr-2" />
         <span className="text-lg font-bold">Meta Dashboard</span>

@@ -6,7 +6,7 @@ import { Button } from '@/components/ui/button';
 
 export function Header() {
     return (
-        <header className="flex h-16 items-center justify-between border-b bg-card px-6">
+        <header className="sticky top-0 z-50 flex h-16 items-center gap-4 border-b glass px-6">
             <div className="flex items-center w-1/3">
                 <div className="relative w-full max-w-md">
                     <Search className="absolute left-2.5 top-2.5 h-4 w-4 text-muted-foreground" />

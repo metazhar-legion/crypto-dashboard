@@ -12,13 +12,15 @@ export default async function Home() {
   const sofrPromise = getFredSeries('SOFR');
   const marketPromise = getMarketData(['GC=F', '^GSPC']);
   const historyPromise = getHistoricalData('bitcoin', 30);
+  const derivativesPromise = getDerivativesData();
 
-  const [prices, m2Data, sofrData, marketData, btcHistory] = await Promise.all([
+  const [prices, m2Data, sofrData, marketData, btcHistory, derivativesData] = await Promise.all([
     pricesPromise,
     m2Promise,
     sofrPromise,
     marketPromise,
-    historyPromise
+    historyPromise,
+    derivativesPromise
   ]);
 
   const btc = prices.find((p) => p.id === 'bitcoin');
@@ -134,24 +136,39 @@ export default async function Home() {
 
         <Card className="col-span-3">
           <CardHeader>
-            <CardTitle>Funding Rates</CardTitle>
+            <CardTitle>Funding Rates (Hyperliquid)</CardTitle>
           </CardHeader>
           <CardContent>
-            <div className="space-y-8">
-              <div className="flex items-center">
-                <div className="ml-4 space-y-1">
-                  <p className="text-sm font-medium leading-none">Binance</p>
-                  <p className="text-sm text-muted-foreground">BTC/USDT</p>
-                </div>
-                <div className="ml-auto font-medium text-green-500">+0.0100%</div>
-              </div>
-              <div className="flex items-center">
-                <div className="ml-4 space-y-1">
-                  <p className="text-sm font-medium leading-none">Bybit</p>
-                  <p className="text-sm text-muted-foreground">BTC/USDT</p>
-                </div>
-                <div className="ml-auto font-medium text-green-500">+0.0098%</div>
-              </div>
+            <div className="space-y-4">
+              <div className="text-xs font-semibold text-muted-foreground uppercase">Highest Funding</div>
+              {derivativesData
+                .sort((a, b) => b.fundingRate - a.fundingRate)
+                .slice(0, 3)
+                .map((item) => (
+                  <div key={item.coin} className="flex items-center">
+                    <div className="ml-4 space-y-1">
+                      <p className="text-sm font-medium leading-none">{item.coin}</p>
+                    </div>
+                    <div className="ml-auto font-medium text-green-500">
+                      {formatPercent(item.fundingRate)}
+                    </div>
+                  </div>
+                ))}
+
+              <div className="text-xs font-semibold text-muted-foreground uppercase mt-4">Lowest Funding</div>
+              {derivativesData
+                .sort((a, b) => a.fundingRate - b.fundingRate)
+                .slice(0, 3)
+                .map((item) => (
+                  <div key={item.coin} className="flex items-center">
+                    <div className="ml-4 space-y-1">
+                      <p className="text-sm font-medium leading-none">{item.coin}</p>
+                    </div>
+                    <div className={`ml-auto font-medium ${item.fundingRate < 0 ? 'text-red-500' : 'text-green-500'}`}>
+                      {formatPercent(item.fundingRate)}
+                    </div>
+                  </div>
+                ))}
             </div>
           </CardContent>
         </Card>

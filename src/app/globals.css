@@ -120,3 +120,17 @@
     @apply bg-background text-foreground;
   }
 }
+
+@layer utilities {
+  .glass {
+    @apply bg-background/60 backdrop-blur-lg border-border/50;
+  }
+  
+  .gradient-text {
+    @apply bg-clip-text text-transparent bg-gradient-to-r from-indigo-400 to-cyan-400;
+  }
+
+  .card-gradient {
+    @apply bg-gradient-to-br from-card to-card/50;
+  }
+}
