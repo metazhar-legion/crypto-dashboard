@@ -12,9 +12,11 @@ export async function getMarketData(symbols: string[] = ['GC=F', '^GSPC']): Prom
         const results = await Promise.all(
             symbols.map(async (symbol) => {
                 try {
-                    const quote = await yahooFinance.quote(symbol) as any;
+                    // Use quoteSummary instead of quote for better compatibility
+                    const result = await yahooFinance.quoteSummary(symbol, { modules: ['price'] });
+                    const quote = result.price as any;
                     return {
-                        symbol: quote.symbol,
+                        symbol: quote.symbol || symbol,
                         regularMarketPrice: quote.regularMarketPrice || 0,
                         regularMarketChangePercent: quote.regularMarketChangePercent || 0,
                         shortName: quote.shortName || symbol,
