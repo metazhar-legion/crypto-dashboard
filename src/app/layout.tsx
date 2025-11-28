@@ -6,7 +6,7 @@ import DashboardLayout from '@/components/layout/DashboardLayout';
 const inter = Inter({ subsets: ['latin'] });
 
 export const metadata: Metadata = {
-  title: 'Crypto Dashboard',
+  title: 'Meta Dashboard',
   description: 'Macro market movements and derivatives analytics',
 };
 

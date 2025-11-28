@@ -20,7 +20,7 @@ export function Sidebar() {
     <div className="flex h-full w-64 flex-col bg-card border-r">
       <div className="flex h-16 items-center px-6 border-b">
         <Activity className="h-6 w-6 text-primary mr-2" />
-        <span className="text-lg font-bold">CryptoDash</span>
+        <span className="text-lg font-bold">Meta Dashboard</span>
       </div>
       <nav className="flex-1 space-y-1 px-3 py-4">
         {navigation.map((item) => (

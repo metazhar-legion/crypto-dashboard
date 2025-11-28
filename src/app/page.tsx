@@ -2,6 +2,7 @@ import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { getSpotPrices, getHistoricalData } from '@/lib/api';
 import { getFredSeries } from '@/lib/fred';
 import { getMarketData } from '@/lib/yahoo';
+import { getDerivativesData } from '@/lib/hyperliquid';
 import { calculateSMA, calculateEMA } from '@/lib/indicators';
 import ClientPriceChart from '@/components/charts/ClientPriceChart';
 
@@ -51,7 +52,7 @@ export default async function Home() {
 
   return (
     <div className="space-y-6">
-      <h1 className="text-3xl font-bold tracking-tight">Dashboard</h1>
+      <h1 className="text-3xl font-bold tracking-tight bg-gradient-to-r from-indigo-400 to-cyan-400 bg-clip-text text-transparent">Meta Dashboard</h1>
 
       <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-4">
         <Card>
