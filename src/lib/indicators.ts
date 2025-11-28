@@ -17,7 +17,7 @@ export function calculateSMA(data: number[], period: number): number[] {
 
 export function calculateEMA(data: number[], period: number): number[] {
     const k = 2 / (period + 1);
-    const ema = [];
+    const ema: number[] = [];
 
     // Start with SMA
     let sum = 0;

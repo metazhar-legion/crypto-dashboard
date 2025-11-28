@@ -2,6 +2,7 @@ import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { getSpotPrices, getHistoricalData } from '@/lib/api';
 import { getFredSeries } from '@/lib/fred';
 import { getMarketData } from '@/lib/yahoo';
+import { calculateSMA, calculateEMA } from '@/lib/indicators';
 import { PriceChart } from '@/components/charts/PriceChart';
 
 export default async function Home() {
@@ -30,6 +31,17 @@ export default async function Home() {
 
   const gold = marketData.find((m) => m.symbol === 'GC=F');
   const spx = marketData.find((m) => m.symbol === '^GSPC');
+
+  // Calculate Indicators
+  const pricesOnly = btcHistory.map(d => d.value);
+  const sma = calculateSMA(pricesOnly, 7);
+  const ema = calculateEMA(pricesOnly, 7);
+
+  const chartData = btcHistory.map((d, i) => ({
+    ...d,
+    sma: sma[i],
+    ema: ema[i],
+  }));
 
   const formatCurrency = (value: number) =>
     new Intl.NumberFormat('en-US', { style: 'currency', currency: 'USD' }).format(value);
@@ -112,7 +124,12 @@ export default async function Home() {
       </div>
 
       <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-7">
-        <PriceChart title="BTC Price History (30 Days)" data={btcHistory} />
+        <PriceChart
+          title="BTC Price History (30 Days)"
+          data={chartData}
+          showSMA={true}
+          showEMA={true}
+        />
 
         <Card className="col-span-3">
           <CardHeader>

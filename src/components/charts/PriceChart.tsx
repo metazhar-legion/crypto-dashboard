@@ -65,7 +65,7 @@ export function PriceChart({
                                                 <div className="grid grid-cols-1 gap-2">
                                                     <div className="flex flex-col">
                                                         <span className="text-[0.70rem] uppercase text-muted-foreground">
-                                                            {new Date(label).toLocaleDateString()}
+                                                            {label ? new Date(label).toLocaleDateString() : ''}
                                                         </span>
                                                         {payload.map((entry: any) => (
                                                             <span key={entry.name} className="font-bold text-sm" style={{ color: entry.color }}>
