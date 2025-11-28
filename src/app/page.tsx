@@ -3,12 +3,7 @@ import { getSpotPrices, getHistoricalData } from '@/lib/api';
 import { getFredSeries } from '@/lib/fred';
 import { getMarketData } from '@/lib/yahoo';
 import { calculateSMA, calculateEMA } from '@/lib/indicators';
-import dynamic from 'next/dynamic';
-
-const PriceChart = dynamic(() => import('@/components/charts/PriceChart').then(mod => mod.PriceChart), {
-  ssr: false,
-  loading: () => <div className="h-[300px] w-full flex items-center justify-center text-muted-foreground">Loading Chart...</div>
-});
+import ClientPriceChart from '@/components/charts/ClientPriceChart';
 
 export default async function Home() {
   const pricesPromise = getSpotPrices(['bitcoin', 'ethereum']);
@@ -129,7 +124,7 @@ export default async function Home() {
       </div>
 
       <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-7">
-        <PriceChart
+        <ClientPriceChart
           title="BTC Price History (30 Days)"
           data={chartData}
           showSMA={true}

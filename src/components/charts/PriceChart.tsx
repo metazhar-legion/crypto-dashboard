@@ -46,7 +46,7 @@ export function PriceChart({
                                 axisLine={false}
                                 tickFormatter={(value) => {
                                     const date = new Date(value);
-                                    return date.toLocaleDateString('en-US', { month: 'numeric', day: 'numeric' });
+                                    return date.toLocaleDateString('en-US', { month: 'numeric', day: 'numeric', timeZone: 'UTC' });
                                 }}
                             />
                             <YAxis
@@ -65,7 +65,7 @@ export function PriceChart({
                                                 <div className="grid grid-cols-1 gap-2">
                                                     <div className="flex flex-col">
                                                         <span className="text-[0.70rem] uppercase text-muted-foreground">
-                                                            {label ? new Date(label).toLocaleDateString('en-US') : ''}
+                                                            {label ? new Date(label).toLocaleDateString('en-US', { timeZone: 'UTC' }) : ''}
                                                         </span>
                                                         {payload.map((entry: any) => (
                                                             <span key={entry.name} className="font-bold text-sm" style={{ color: entry.color }}>
