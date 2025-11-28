@@ -35,7 +35,7 @@ export function PriceChart({
                 <CardTitle>{title}</CardTitle>
             </CardHeader>
             <CardContent className="pl-2">
-                <div className="h-[300px] w-full">
+                <div className="h-[300px] w-full min-w-0">
                     <ResponsiveContainer width="100%" height="100%">
                         <LineChart data={data}>
                             <XAxis
@@ -46,7 +46,7 @@ export function PriceChart({
                                 axisLine={false}
                                 tickFormatter={(value) => {
                                     const date = new Date(value);
-                                    return `${date.getMonth() + 1}/${date.getDate()}`;
+                                    return date.toLocaleDateString('en-US', { month: 'numeric', day: 'numeric' });
                                 }}
                             />
                             <YAxis
@@ -65,7 +65,7 @@ export function PriceChart({
                                                 <div className="grid grid-cols-1 gap-2">
                                                     <div className="flex flex-col">
                                                         <span className="text-[0.70rem] uppercase text-muted-foreground">
-                                                            {label ? new Date(label).toLocaleDateString() : ''}
+                                                            {label ? new Date(label).toLocaleDateString('en-US') : ''}
                                                         </span>
                                                         {payload.map((entry: any) => (
                                                             <span key={entry.name} className="font-bold text-sm" style={{ color: entry.color }}>
